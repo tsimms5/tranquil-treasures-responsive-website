@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tranquil Treasures — M9 Minimal</title>
+  <!-- ONE FILE ONLY: HTML + CSS + JS inline -->
+  <style>
+    /* ===== Reset-ish ===== */
+    * { box-sizing: border-box }
+    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height:1.6; background:#faf7f2; color:#222 }
+    /* ===== Layout ===== */
+    header{ background:#b08968; color:#fff; padding:16px; text-align:center; font-weight:700 }
+    main{ width:min(900px, 92vw); margin:24px auto; background:#fff; padding:24px; border-radius:14px; box-shadow:0 6px 18px rgba(0,0,0,.08) }
+    h1{ font-family: Georgia, serif; color:#3e2c22; text-align:center; margin:0 0 12px }
+    ul{ padding-left:22px }
+    li{ margin:.6rem 0 }
+    section{ margin-top:28px }
+    .card{ background:#fff; border:1px solid #eee; padding:16px; border-radius:12px }
+    button{ border:1px solid #b08968; background:#b08968; color:#fff; padding:.6rem .9rem; border-radius:999px; cursor:pointer }
+    footer{ text-align:center; color:#666; padding:18px }
+    /* ===== Mobile tweak ===== */
+    @media (max-width:768px){ main{ padding:18px } h1{ font-size:1.35rem } }
+  </style>
+</head>
+<body>
+  <header>Tranquil Treasures</header>
+
+  <main>
+    <h1>8 Benefits of Meditation 🌿</h1>
+    <ul>
+      <li>Reduces stress</li>
+      <li>Improves focus</li>
+      <li>Promotes relaxation</li>
+      <li>Encourages emotional balance</li>
+      <li>Boosts creativity</li>
+      <li>Improves sleep quality</li>
+      <li>Strengthens mindfulness</li>
+      <li>Supports overall well‑being</li>
+    </ul>
+
+    <section class="card" aria-live="polite">
+      <h2 style="margin:.2rem 0 8px">Daily Intention Quote (API)</h2>
+      <p id="q">Loading quote…</p>
+      <p id="a" style="margin-top:-8px; color:#666"></p>
+      <div style="margin-top:10px"><button id="r">Refresh quote</button></div>
+    </section>
+  </main>
+
+  <footer>© <span id="y"></span> Tranquil Treasures • IMED‑1316 M9</footer>
+
+  <script>
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Minimal API (Quotable). Works in a real browser (Chrome). Dreamweaver Live may block it.
+    async function loadQuote(){
+      try{
+        const res = await fetch('https://api.quotable.io/random?tags=inspirational|wisdom');
+        const data = await res.json();
+        document.getElementById('q').textContent = '“' + data.content + '”';
+        document.getElementById('a').textContent = '— ' + (data.author || 'Unknown');
+      }catch(e){
+        document.getElementById('q').textContent = 'Unable to load quote. Open this file in Chrome to test (Dreamweaver Live can block fetch).';
+        document.getElementById('a').textContent = '';
+      }
+    }
+    loadQuote();
+    document.getElementById('r').addEventListener('click', loadQuote);
+  </script>
+</body>
+</html>
